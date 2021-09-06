@@ -1,0 +1,44 @@
+.jumbotron{
+    width:650px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-color: #DCDCDC;
+    padding: 5px;
+}
+
+.table{
+    margin-top: 20px;
+}
+
+.form-control{
+    margin-bottom: 5px;
+    
+}
+
+.btn-block{
+    width: 400px;
+    margin-bottom: 2px;
+}
+
+.selecionado{
+    background-color: yellow;
+}
+
+.negrito{
+    font-weight: bold;
+}
+
+.mensagem-erro{
+    font-weight: bold;
+    color:red;
+    margin-top: 10px;
+}
+
+.nav{
+    text-decoration: none; 
+    font-weight: bold; 
+    color: inherit;
+    margin-right: 5px;
+}
