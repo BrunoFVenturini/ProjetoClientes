@@ -26,12 +26,7 @@ public class VendaService {
         Optional<Produto> produto = produtoRepo.findById(venda.getProduto().getId());
         Long quantidadeVendido = venda.getQuantidade_vendido();
 
-        if(!verificaEstoque(produto, quantidadeVendido) && produto.isPresent()) {
-
-            produto.get().setQuantidade_estoque((int) (produto.get().getQuantidade_estoque() - quantidadeVendido));
-
-            return vendaRepo.save(venda);
-        }else throw new EntityNotFoundException("Não há produtos suficientes no estoque. Venda cancelada.");
+        return AlteraEstoque(produto, quantidadeVendido, venda, "Não há produtos suficientes no estoque. Venda cancelada.");
     }
 
     public List<Venda> retornasTodasVendas(){
@@ -44,12 +39,7 @@ public class VendaService {
         Long quantidadeNova = venda.getQuantidade_vendido();
         Long diferenca = quantidadeNova - quantidadeAnterior;
 
-        if(!verificaEstoque(produto, diferenca) && produto.isPresent()){
-
-            produto.get().setQuantidade_estoque((int) (produto.get().getQuantidade_estoque() - diferenca));
-
-            return vendaRepo.save(venda);
-        }else throw new EntityNotFoundException("Não há produtos suficientes no estoque. Alteração cancelada.");
+        return AlteraEstoque(produto, diferenca, venda, "Não há produtos suficientes no estoque. Alteração cancelada.");
     }
 
     public void deletaVenda (Long id){
@@ -65,12 +55,6 @@ public class VendaService {
         return vendaRepo.findById(id);
     }
 
-    public void reduzEstoque(Optional<Produto> produto, Long quantidade_vendido) {
-        if(produto.isPresent()){
-              produto.get().setQuantidade_estoque((int) (produto.get().getQuantidade_estoque() - quantidade_vendido));
-        }
-    }
-
     public void reiterarEstoque(Optional<Produto> produto, Long quantidade_reiterada){
         if(produto.isPresent()){
             produto.get().setQuantidade_estoque((int) (produto.get().getQuantidade_estoque() + quantidade_reiterada));
@@ -79,6 +63,16 @@ public class VendaService {
 
     public boolean verificaEstoque(Optional<Produto> produto, Long compra){
         return produto.get().getQuantidade_estoque() - compra < 0;
+    }
+
+    public Venda AlteraEstoque(Optional<Produto> produto, Long valor, Venda venda, String mensagem){
+        if(!verificaEstoque(produto, valor) && produto.isPresent()) {
+
+            produto.get().setQuantidade_estoque((int) (produto.get().getQuantidade_estoque() -  valor));
+
+            return vendaRepo.save(venda);
+        }
+        throw new EntityNotFoundException(mensagem);
     }
 
 

@@ -24,8 +24,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     private ResponseEntity<EstoqueVazioException> handleEntityNotFound(EntityNotFoundException ex){
-        EstoqueVazioException error = new EstoqueVazioException(HttpStatus.BAD_REQUEST, "Estoque Insuficiente", ex.getMessage());
+        EstoqueVazioException error = new EstoqueVazioException(HttpStatus.FORBIDDEN, "Erro", ex.getMessage());
 
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
+
 }

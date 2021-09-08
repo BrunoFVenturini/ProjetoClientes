@@ -21,7 +21,7 @@ public class VendaResource {
         this.vendaService = vendaService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<Venda>> buscaVendas(){
         List<Venda> vendas = vendaService.retornasTodasVendas();
         return new ResponseEntity<>(vendas, HttpStatus.OK);
