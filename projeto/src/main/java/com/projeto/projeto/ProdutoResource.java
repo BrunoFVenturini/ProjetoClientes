@@ -23,7 +23,7 @@ public class ProdutoResource {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<Produto>> buscaProdutos(){
         List<Produto> produtos = produtoService.retornaTodosProdutos();
         return new ResponseEntity<>(produtos, HttpStatus.OK);
@@ -54,6 +54,12 @@ public class ProdutoResource {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletaProduto(@PathVariable("id") Long id){
         produtoService.deletaProduto(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deletaListaProdutos(@RequestParam List<Long> idProdutos){
+        produtoService.deletaListaProduto(idProdutos);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

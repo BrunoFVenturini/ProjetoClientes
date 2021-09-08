@@ -1,13 +1,13 @@
 package com.projeto.projeto;
 
 import com.projeto.projeto.model.Cliente;
-import com.projeto.projeto.model.Produto;
 import com.projeto.projeto.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +22,7 @@ public class ClienteResource {
         this.clienteService = clienteService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<Cliente>> buscaClientes (){
         List<Cliente> clientes = clienteService.retornaTodosClientes();
         return new ResponseEntity<>(clientes, HttpStatus.OK);
@@ -54,6 +54,12 @@ public class ClienteResource {
     @DeleteMapping ("/delete/{id}")
     public ResponseEntity<?> deletaCliente(@PathVariable("id") Long id){
         clienteService.deletaCliente(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping ("/delete")
+    public ResponseEntity<?> deletaListaClientes(@RequestParam List<Long> idClientes){
+        clienteService.deletaListaCliente(idClientes);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

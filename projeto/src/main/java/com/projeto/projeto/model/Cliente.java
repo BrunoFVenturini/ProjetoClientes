@@ -1,5 +1,6 @@
 package com.projeto.projeto.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,14 +17,19 @@ public class Cliente {
     @Column(nullable = false, updatable = false)
     private Long id;
     @Column
+    @NotNull
     private String name;
     @Column
+    @NotNull
     private String cpf;
     @Column
+    @NotNull
     private String endereco;
     @Column
+    @NotNull
     private String telefone;
     @Column
+    @NotNull
     private String horario_cadastro;
 
     public Cliente(){}
